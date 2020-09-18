@@ -40,6 +40,13 @@ export const startRegisterWithEmailPassword = ({ email, password, name }) => {
     };
 };
 
+export const startLogOut = () => {
+    return async (dispatch) => {
+        await firebase.auth().signOut();
+        dispatch(logout());
+    };
+};
+
 // TODO - Para Dispatcher
 
 export const login = (uid, displayName) => ({
