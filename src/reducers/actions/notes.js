@@ -25,6 +25,16 @@ export const startLoadingNotes = (uid) => {
   };
 };
 
+export const startSaveNote = (note) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    const noteToFireStore = { ...note };
+    delete noteToFireStore.id;
+
+    await db.doc(`${uid}/journal/notes/${note.id}`).update(noteToFireStore);
+  };
+};
+
 // TODO - Para Dispatcher
 
 export const activeNote = (id, note) => ({
