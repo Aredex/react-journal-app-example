@@ -9,13 +9,31 @@ const NotesAppBar = () => {
   const handleSave = () => {
     dispatch(startSaveNote(note));
   };
-  
+
+  const handlePictureUpload = () => {
+    document.querySelector("#fileSelector").click();
+  };
+
+  const handleFileChange = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className="notes__appbar">
       <span>28 de agosto 2020</span>
 
+      <input
+        id="fileSelector"
+        name="file"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        type="file"
+      />
+
       <div>
-        <button className="btn">Picture</button>
+        <button className="btn" onClick={handlePictureUpload}>
+          Picture
+        </button>
 
         <button className="btn" onClick={handleSave}>
           Save
