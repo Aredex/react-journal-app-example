@@ -4,11 +4,11 @@ import AppRouter from "./routers/AppRouter";
 import store from "./store/store";
 
 const JournalApp = () => {
-    return (
-        <Provider store={store}>
-            <AppRouter />;
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <AppRouter />;
+    </Provider>
+  );
 };
 
 export default JournalApp;
