@@ -15,7 +15,7 @@ const NoteScreen = () => {
   useEffect(() => {
     if (note.id !== activeId.current) {
       resetForm(note);
-        activeId.current = note.id;
+      activeId.current = note.id;
     }
   }, [note, resetForm]);
 
@@ -48,10 +48,7 @@ const NoteScreen = () => {
 
         {note.url && (
           <div className="notes__image">
-            <img
-              src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"
-              alt="imagen"
-            />
+            <img src={note.url} alt="imagen" />
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { db } from "../../firebase/firebase-config";
+import { fileUpload } from "../../helpers/fileUpload";
 import { loadNotes } from "../../helpers/loadNotes";
 import types from "../../types/types";
 
@@ -39,6 +40,28 @@ export const startSaveNote = (note) => {
   };
 };
 
+export const startUpLoading = (file) => {
+  return async (dispatch, getState) => {
+    Swal.fire({
+      title: "uploading...",
+      text: "Please wait...",
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    const { active: activeNote } = getState().notes;
+    const fileUrl = await fileUpload(file);
+
+    activeNote.url = fileUrl;
+
+    dispatch(startSaveNote(activeNote));
+
+    Swal.close();
+  };
+};
+
 // TODO - Para Dispatcher
 
 export const activeNote = (id, note) => ({
@@ -51,7 +74,7 @@ export const activeNote = (id, note) => ({
 
 export const setNotes = (notes) => ({
   type: types.notesLoad,
-  payload: notes,
+  payload: [...notes],
 });
 
 export const refreshNote = (id, note) => ({

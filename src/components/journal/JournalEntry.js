@@ -8,7 +8,7 @@ const JournalEntry = ({ url, id, body, date, title }) => {
   const dispatch = useDispatch();
 
   const handleSelectNote = () => {
-    dispatch(activeNote(id, { body, title, date }));
+    dispatch(activeNote(id, { body, title, date, url }));
   };
 
   return (

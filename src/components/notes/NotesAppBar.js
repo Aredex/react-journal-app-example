@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startSaveNote } from "../../reducers/actions/notes";
+import { startSaveNote, startUpLoading } from "../../reducers/actions/notes";
 
 const NotesAppBar = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,10 @@ const NotesAppBar = () => {
   };
 
   const handleFileChange = (e) => {
-    console.log(e);
+    const file = e.target.files[0];
+    if (file) {
+      dispatch(startUpLoading(file));
+    }
   };
 
   return (
