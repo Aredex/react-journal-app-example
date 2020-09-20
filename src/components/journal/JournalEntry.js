@@ -12,7 +12,10 @@ const JournalEntry = ({ url, id, body, date, title }) => {
   };
 
   return (
-    <div className="journal__entry cursor" onClick={handleSelectNote}>
+    <div
+      className="journal__entry pointer animate__animated animate__fadeIn animate__faster"
+      onClick={handleSelectNote}
+    >
       {url && (
         <div
           className="journal__entry-picture"
