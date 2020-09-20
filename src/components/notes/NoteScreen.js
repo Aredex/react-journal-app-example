@@ -1,16 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { activeNote } from "../../reducers/actions/notes";
+import { activeNote, startDeletingImg } from "../../reducers/actions/notes";
 import NotesAppBar from "./NotesAppBar";
 
 const NoteScreen = () => {
   const { active: note } = useSelector((state) => state.notes);
   const [formValues, handleInputChange, resetForm] = useForm(note);
-  const { body, title } = formValues;
+  const { body, title, id } = formValues;
   const dispatch = useDispatch();
 
   const activeId = useRef(note.id);
+
+  const handleDeleteImg = () => {
+    dispatch(startDeletingImg(id));
+  };
 
   useEffect(() => {
     if (note.id !== activeId.current) {
@@ -52,6 +56,10 @@ const NoteScreen = () => {
           </div>
         )}
       </div>
+
+      <button className="btn btn-danger" onClick={handleDeleteImg}>
+        Delete
+      </button>
     </div>
   );
 };

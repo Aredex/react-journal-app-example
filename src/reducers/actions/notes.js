@@ -17,6 +17,7 @@ export const startNewNote = () => {
     const docRef = await db.collection(`${uid}/journal/notes`).add(newNote);
 
     dispatch(activeNote(docRef.id, newNote));
+    dispatch(addNewNote(docRef.id, newNote));
   };
 };
 
@@ -62,10 +63,27 @@ export const startUpLoading = (file) => {
   };
 };
 
+export const startDeletingImg = (id) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    await db.doc(`${uid}/journal/notes/${id}`).delete();
+
+    dispatch(deleteNote(id));
+  };
+};
+
 // TODO - Para Dispatcher
 
 export const activeNote = (id, note) => ({
   type: types.notesActive,
+  payload: {
+    id,
+    ...note,
+  },
+});
+
+export const addNewNote = (id, note) => ({
+  type: types.notesAddNew,
   payload: {
     id,
     ...note,
@@ -86,4 +104,9 @@ export const refreshNote = (id, note) => ({
       ...note,
     },
   },
+});
+
+export const deleteNote = (id) => ({
+  type: types.notesDelete,
+  payload: id,
 });
